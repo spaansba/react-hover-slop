@@ -1,6 +1,6 @@
 # React Hover Slop
 
-A React hook that extends the hover area around elements, creating a more forgiving and intuitive hover experience.
+A React hook that expands the area of the mouseOver, mouseLeave and mouseEnter events for React components. Usefull for if you want to prefetch earlier than regular hover
 
 ## [Live Demo](https://react-hover-slop-example-page.vercel.app/)
 
