@@ -1,0 +1,39 @@
+{
+  "name": "react-hover-slop",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "rollup": "rollup -c --bundleConfigAsCjs"
+  },
+  "keywords": [
+    "hover-slop",
+    "extend-hover-area",
+    "hover-extension",
+    "hover-area",
+    "hit-slop",
+    "hover-expand"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spaansba/react-hover-slop"
+  },
+  "author": "bart spaans",
+  "license": "MIT",
+  "description": "Expand the area of the mouseOver, mouseLeave and mouseEnter events for React components. Usefull for if you want to prefetch earlier than regular hover",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "react": "^19.1.0",
+    "rollup": "^4.40.1",
+    "rollup-plugin-dts": "^6.2.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.3"
+  }
+}
