@@ -19,7 +19,10 @@ export function HoverslopDebug<T extends HTMLElement>(
   if (!element) {
     return () => {}
   }
-
+  const clientRecs = element.getBoundingClientRect()
+  if (clientRecs.height === 0 || clientRecs.width === 0) {
+    return () => {}
+  }
   let debugContainer = document.querySelector(
     `div[data-hover-slop-debug-container="true"]`
   ) as HTMLElement
@@ -132,6 +135,7 @@ const ShadowRootStyles = `
         position: fixed;
         pointer-events: none;
         transition: background-color 0.2s, border-color 0.2s;
+        z-index: 10000000000000000;
       }
       .debug-box:is(.hovered) {
         background-color: rgba(0, 255, 0, 0.1);
