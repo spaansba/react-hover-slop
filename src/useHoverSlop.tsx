@@ -20,7 +20,7 @@ type UseHoverslopResult = {
   isHovered: boolean
 }
 
-export default function useHoverslop<T extends HTMLElement>(
+export default function useHoverSlop<T extends HTMLElement>(
   elementRef: RefObject<T | null>,
   hoverslopBox: HoverslopBox,
   mouseEvents: EventHandlers,

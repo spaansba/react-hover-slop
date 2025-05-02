@@ -1,2 +1,2 @@
-import useHoverslop from "./useHoverSlop"
-export default useHoverslop
+import useHoverSlop from "./useHoverSlop"
+export default useHoverSlop
