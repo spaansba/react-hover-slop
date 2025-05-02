@@ -69,7 +69,7 @@ function MyComponent() {
 
 - `isHovered`: Boolean indicating whether the cursor is within the extended area
 
-### Visual Debugging
+## Visual Debugging
 
 Adds a visual border around the element for debugging your slop boxes. 
 
