@@ -16,6 +16,18 @@ type EventHandlers = {
   onMouseLeave?: () => void
 }
 
+type hoverSlopOptions = {
+  debugMode?: boolean
+  eventOptions?: {
+    onMouseEnter?: {
+      once?: boolean
+    }
+    onMouseLeave?: {
+      once?: boolean
+    }
+  }
+}
+
 type UseHoverslopResult = {
   isHovered: boolean
 }
@@ -24,9 +36,23 @@ export default function useHoverSlop<T extends HTMLElement>(
   elementRef: RefObject<T | null>,
   hoverslopBox: HoverslopBox,
   mouseEvents: EventHandlers,
-  debugMode?: boolean
+  options: hoverSlopOptions = {
+    debugMode: false,
+    eventOptions: {
+      onMouseEnter: {
+        once: false,
+      },
+      onMouseLeave: {
+        once: false,
+      },
+    },
+  }
 ): UseHoverslopResult {
   const [isHovered, setIsHovered] = useState(false)
+  const { onMouseLeave, onMouseEnter, onMouseOver } = mouseEvents
+  const debugMode = options.debugMode
+  const [fireMouseEnter, setFireMouseEnter] = useState(true)
+  const [fireMouseLeave, setFireMouseLeave] = useState(true)
 
   const getElementName = useCallback(() => {
     if (!elementRef.current) return ""
@@ -75,22 +101,62 @@ export default function useHoverSlop<T extends HTMLElement>(
   )
 
   const handleOnMouseEnter = useCallback(() => {
-    mouseEvents.onMouseEnter?.()
+    if (!onMouseEnter) {
+      return
+    }
+    if (options.eventOptions?.onMouseEnter?.once && !fireMouseEnter) {
+      if (debugMode) {
+        console.log(
+          "not firing onMouseEnterEvent, event has already been fire once for ",
+          getElementName()
+        )
+      }
+      return
+    }
+    onMouseEnter()
+    setFireMouseEnter(false)
     if (debugMode) {
       console.log("onMouseEnterEvent for", getElementName())
     }
-  }, [mouseEvents, debugMode, getElementName])
+  }, [
+    onMouseEnter,
+    debugMode,
+    getElementName,
+    fireMouseEnter,
+    options.eventOptions?.onMouseEnter?.once,
+  ])
 
   const handleOnMouseOver = useCallback(() => {
-    mouseEvents.onMouseOver?.()
-  }, [mouseEvents])
+    if (onMouseOver) {
+      onMouseOver()
+    }
+  }, [onMouseOver])
 
   const handleOnMouseLeave = useCallback(() => {
-    mouseEvents.onMouseLeave?.()
+    if (!onMouseLeave) {
+      return
+    }
+    if (options.eventOptions?.onMouseLeave?.once && !fireMouseLeave) {
+      if (debugMode) {
+        console.log(
+          "not firing onMouseLeaveEvent, event has already been fire once for ",
+          getElementName()
+        )
+      }
+      return
+    }
+    onMouseLeave()
+    setFireMouseLeave(false)
     if (debugMode) {
       console.log("onMouseLeaveEvent for", getElementName())
     }
-  }, [mouseEvents, debugMode, getElementName])
+  }, [
+    onMouseLeave,
+    debugMode,
+    getElementName,
+    options.eventOptions?.onMouseLeave?.once,
+    fireMouseLeave,
+  ])
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -101,7 +167,7 @@ export default function useHoverSlop<T extends HTMLElement>(
           handleOnMouseOver()
         } else if (prevIsHovered && !isInside) {
           handleOnMouseLeave()
-        } else if (isInside && mouseEvents.onMouseOver) {
+        } else if (isInside && onMouseOver) {
           handleOnMouseOver()
         }
 
@@ -114,7 +180,7 @@ export default function useHoverSlop<T extends HTMLElement>(
     return () => {
       window.removeEventListener("mousemove", handleMouseMove)
     }
-  }, [isWithinExtendedArea, mouseEvents, handleOnMouseEnter, handleOnMouseLeave, handleOnMouseOver])
+  }, [isWithinExtendedArea, onMouseOver, handleOnMouseEnter, handleOnMouseLeave, handleOnMouseOver])
 
   useEffect(() => {
     if (!debugMode) {
