@@ -1,54 +1,64 @@
-# React + TypeScript + Vite
+# react-hover-slop Test Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This test application demonstrates the functionality of the `react-hover-slop` package. It showcases different usage patterns and configurations to help developers understand how to implement and test the hover slop functionality.
 
-Currently, two official plugins are available:
+## Features Demonstrated
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Multiple Element Types**: Tests the hover slop behavior on different element types (button, div, anchor)
+- **Various Slop Configurations**: Shows different slop area configurations (symmetric, asymmetric, uniform)
+- **Event Handling**: Demonstrates all available event handlers (onMouseEnter, onMouseLeave, onMouseOver)
+- **Debug Mode**: Visual debugging overlay to see the extended hover areas
+- **Event Options**: Shows the "once" option for event triggering
+- **Event Logging**: Real-time display of triggered events with timestamps
 
-## Expanding the ESLint configuration
+## How to Run
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+From the main project directory:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Or from this test directory:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm run dev
 ```
+
+## Implementation Details
+
+The test app is built with:
+- Vite as the build tool
+- React for UI components
+- TypeScript for type safety
+- Tailwind CSS for styling
+
+## Test Scenarios
+
+1. **Button with Large Slop Area**:
+   - 60px slop on all sides
+   - All event handlers implemented (onMouseEnter, onMouseLeave, onMouseOver)
+
+2. **Card with Asymmetric Slop Area**:
+   - Varied slop sizes on different sides (top: 20px, left: 100px, right: 20px, bottom: 0px)
+   - onMouseEnter configured with `once: true` to demonstrate single triggering
+
+3. **Link with Uniform Slop**:
+   - 30px slop on all sides using the number shorthand
+   - Basic event handlers
+
+## Debug Mode
+
+The debug overlay can be toggled on/off using the button at the top of the page. When enabled, it shows:
+
+- The extended hover area around each element
+- Color indicators for hover state (red = not hovered, green = hovered)
+- Dimension labels showing the size of the slop area on each side
+
+## Event Logging
+
+The event log at the bottom of the page displays the most recent events (up to 10) triggered by the hover slop behavior, including:
+
+- Timestamp
+- Event type
+- Element that triggered the event

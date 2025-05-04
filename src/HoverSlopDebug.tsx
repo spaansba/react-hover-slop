@@ -1,5 +1,4 @@
 import { RefObject } from "react"
-// import type { HoverSlopOptions } from "./types"
 
 type HoverslopBox = {
   top: number
@@ -15,13 +14,11 @@ export function HoverSlopDebug<T extends HTMLElement>(
   hoverSlopBoxNormalized: () => HoverslopBox,
   isHovered: boolean,
   elementName: string
-  // options: HoverSlopOptions
 ): DebugCleanupFunction {
   const element = elementRef.current
   if (!element) {
     return () => {}
   }
-
   const clientRecs = element.getBoundingClientRect()
   if (clientRecs.height === 0 || clientRecs.width === 0) {
     return () => {}
@@ -39,7 +36,6 @@ export function HoverSlopDebug<T extends HTMLElement>(
     debugContainer.setAttribute("data-hover-slop-debug-container", "true")
     document.body.appendChild(debugContainer)
     shadowRoot = debugContainer.attachShadow({ mode: "open" })
-
     const style = document.createElement("style")
     style.textContent = ShadowRootStyles
     shadowRoot.appendChild(style)
@@ -47,7 +43,6 @@ export function HoverSlopDebug<T extends HTMLElement>(
   }
 
   const debugElement = document.createElement("div")
-  debugElement.title = "asdasd"
   debugElement.classList.add("debug-box")
   debugElement.id = elementName
   if (isHovered) {
@@ -141,6 +136,7 @@ const ShadowRootStyles = `
         transition: background-color 0.2s, border-color 0.2s;
         z-index: 10000000000000000;
       }
+
       .debug-box:is(.hovered) {
         background-color: rgba(0, 255, 0, 0.1);
         border: 1px solid green;
