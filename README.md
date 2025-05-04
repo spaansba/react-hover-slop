@@ -1,6 +1,6 @@
 # React Hover Slop
 
-A React hook that expands the area of the mouseOver, mouseLeave and mouseEnter events for React components. Usefull for if you want to prefetch earlier than regular hover
+A React hook that expands the area of the mouseOver, mouseLeave and mouseEnter events for React components. Useful for if you want to prefetch earlier than regular hover.
 
 ## [Live Demo](https://react-hover-slop-example-page.vercel.app/)
 
@@ -22,38 +22,41 @@ pnpm add react-hover-slop
 ## Usage
 
 ```jsx
-import { useRef } from 'react';
-import useHoverslop from 'react-hover-slop';
+import { useRef } from "react"
+import useHoverslop from "react-hover-slop"
 
 function MyComponent() {
-  const buttonRef = useRef(null);
-  
+  const buttonRef = useRef(null)
+
   const { isHovered } = useHoverslop(
     buttonRef,
     { top: 20, right: 20, bottom: 20, left: 20 }, // Extend hover hitbox 20px in all directions
     {
-      onMouseEnter: () => console.log('Mouse entered extended area'),
-      onMouseLeave: () => console.log('Mouse left extended area'),
+      onMouseEnter: () => console.log("Mouse entered extended area"),
+      onMouseLeave: () => console.log("Mouse left extended area"),
+    },
+    {
+      debugMode: false, // Optional debugging
     }
-  );
-  
+  )
+
   return (
-    <button 
+    <button
       ref={buttonRef}
-      style={{ 
-        backgroundColor: isHovered ? 'blue' : 'gray',
-        transition: 'background-color 0.3s'
+      style={{
+        backgroundColor: isHovered ? "blue" : "gray",
+        transition: "background-color 0.3s",
       }}
     >
       Hover Me
     </button>
-  );
+  )
 }
 ```
 
 ## API
 
-### `useHoverslop(elementRef, hoverslopBox, mouseEvents, debugMode?)`
+### `useHoverslop(elementRef, hoverslopBox, mouseEvents, options?)`
 
 #### Parameters
 
@@ -63,7 +66,13 @@ function MyComponent() {
   - `onMouseEnter`: Called when the cursor enters the extended area
   - `onMouseOver`: Called repeatedly while the cursor is in the extended area
   - `onMouseLeave`: Called when the cursor leaves the extended area
-- `debugMode`: Boolean to enable visual debugging of hover areas (optional)
+- `options`: Object containing optional configuration:
+  - `debugMode`: Boolean to enable visual debugging of hover areas
+  - `eventOptions`: Object to control event behavior:
+    - `onMouseEnter`: Object with options for mouse enter event:
+      - `once`: Boolean to fire event only once
+    - `onMouseLeave`: Object with options for mouse leave event:
+      - `once`: Boolean to fire event only once
 
 #### Returns
 
@@ -71,9 +80,13 @@ function MyComponent() {
 
 ## Visual Debugging
 
-Adds a visual border around the element for debugging your slop boxes. 
+Adds a visual border around the element for debugging your slop boxes.
 
  <img src="./public/HoveSlopDebugMode.jpg" alt="Adds a visual border around the element for debugging your slop boxes. ">
+
+## Changelog
+
+For a detailed list of changes between versions, see the [CHANGELOG](https://github.com/yourusername/react-hover-slop/blob/main/CHANGELOG.md).
 
 ## License
 
