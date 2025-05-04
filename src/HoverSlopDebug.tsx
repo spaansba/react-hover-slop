@@ -1,5 +1,5 @@
 import { RefObject } from "react"
-import type { HoverSlopOptions } from "./types"
+// import type { HoverSlopOptions } from "./types"
 
 type HoverslopBox = {
   top: number
@@ -14,8 +14,8 @@ export function HoverSlopDebug<T extends HTMLElement>(
   elementRef: RefObject<T | null>,
   hoverSlopBoxNormalized: () => HoverslopBox,
   isHovered: boolean,
-  elementName: string,
-  options: HoverSlopOptions
+  elementName: string
+  // options: HoverSlopOptions
 ): DebugCleanupFunction {
   const element = elementRef.current
   if (!element) {
