@@ -129,16 +129,16 @@ export default function useHoverSlop<T extends HTMLElement>(
   ])
 
   useEffect(() => {
-    if (options.debugMode) {
-      console.log("")
-      console.log(
-        `%cInitializing: %c${getElementName()}`,
-        "font-weight: bold; color: green;",
-        "color: green; font-weight: bold;"
-      )
-      console.log("%coptions:", "color: gray; font-weight: bold;", options)
-      console.log("%cevents:", "color: gray; font-weight: bold;", mouseEvents)
-    }
+    // if (options.debugMode) {
+    //   console.log("")
+    //   console.log(
+    //     `%cInitializing: %c${getElementName()}`,
+    //     "font-weight: bold; color: green;",
+    //     "color: green; font-weight: bold;"
+    //   )
+    //   console.log("%coptions:", "color: gray; font-weight: bold;", options)
+    //   console.log("%cevents:", "color: gray; font-weight: bold;", mouseEvents)
+    // }
     const handleMouseMove = (e: MouseEvent) => {
       const isInside = isWithinExtendedArea(e.clientX, e.clientY)
       setIsHovered((prevIsHovered) => {
@@ -167,8 +167,6 @@ export default function useHoverSlop<T extends HTMLElement>(
     handleOnMouseLeave,
     handleOnMouseOver,
     getElementName,
-    options,
-    mouseEvents,
   ])
 
   useEffect(() => {
