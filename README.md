@@ -91,7 +91,7 @@ Adds a visual border around the element for debugging your slop boxes.
 
 ## Changelog
 
-For a detailed list of changes between versions, see the [CHANGELOG](https://github.com/yourusername/react-hover-slop/blob/main/CHANGELOG.md).
+For a detailed list of changes between versions, see the [CHANGELOG](https://github.com/spaansba/react-hover-slop/blob/main/CHANGELOG.md).
 
 ## License
 
