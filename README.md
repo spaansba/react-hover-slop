@@ -1,5 +1,10 @@
 # React Hover Slop
 
+[![npm version](https://img.shields.io/npm/v/react-hover-slop.svg)](https://www.npmjs.com/package/react-hover-slop)
+[![npm downloads](https://img.shields.io/npm/dm/react-hover-slop.svg)](https://www.npmjs.com/package/react-hover-slop)
+[![npm downloads](https://img.shields.io/npm/dt/react-hover-slop.svg)](https://www.npmjs.com/package/react-hover-slop)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A React hook that expands the area of the mouseOver, mouseLeave and mouseEnter events for React components. Useful for if you want to prefetch earlier than regular hover.
 
 ## [Live Demo](https://react-hover-slop-example-page.vercel.app/)
