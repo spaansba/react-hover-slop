@@ -1,4 +1,5 @@
 import { RefObject } from "react"
+import type { HoverSlopOptions } from "./types"
 
 type HoverslopBox = {
   top: number
@@ -9,16 +10,18 @@ type HoverslopBox = {
 
 type DebugCleanupFunction = () => void
 
-export function HoverslopDebug<T extends HTMLElement>(
+export function HoverSlopDebug<T extends HTMLElement>(
   elementRef: RefObject<T | null>,
-  hoverslopBoxNormalized: () => HoverslopBox,
+  hoverSlopBoxNormalized: () => HoverslopBox,
   isHovered: boolean,
-  elementName: string
+  elementName: string,
+  options: HoverSlopOptions
 ): DebugCleanupFunction {
   const element = elementRef.current
   if (!element) {
     return () => {}
   }
+
   const clientRecs = element.getBoundingClientRect()
   if (clientRecs.height === 0 || clientRecs.width === 0) {
     return () => {}
@@ -44,6 +47,7 @@ export function HoverslopDebug<T extends HTMLElement>(
   }
 
   const debugElement = document.createElement("div")
+  debugElement.title = "asdasd"
   debugElement.classList.add("debug-box")
   debugElement.id = elementName
   if (isHovered) {
@@ -71,7 +75,7 @@ export function HoverslopDebug<T extends HTMLElement>(
 
   const updateDebugElement = () => {
     const rect = element.getBoundingClientRect()
-    const normalizedslopBox = hoverslopBoxNormalized()
+    const normalizedslopBox = hoverSlopBoxNormalized()
     const existingIndicators = debugElement.querySelectorAll(".debug-label-dimension")
     existingIndicators.forEach((el) => el.remove())
 

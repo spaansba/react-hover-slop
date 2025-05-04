@@ -1,42 +1,12 @@
 import { useState, useEffect, useCallback, RefObject } from "react"
-import { HoverslopDebug } from "./HoverSlopDebug"
-
-type HoverslopBox =
-  | {
-      top?: number
-      right?: number
-      bottom?: number
-      left?: number
-    }
-  | number
-
-type EventHandlers = {
-  onMouseOver?: () => void
-  onMouseEnter?: () => void
-  onMouseLeave?: () => void
-}
-
-type hoverSlopOptions = {
-  debugMode?: boolean
-  eventOptions?: {
-    onMouseEnter?: {
-      once?: boolean
-    }
-    onMouseLeave?: {
-      once?: boolean
-    }
-  }
-}
-
-type UseHoverslopResult = {
-  isHovered: boolean
-}
+import { HoverSlopDebug } from "./HoverSlopDebug"
+import { HoverSlopBox, EventHandlers, HoverSlopOptions, UseHoverSlopResult } from "./types"
 
 export default function useHoverSlop<T extends HTMLElement>(
   elementRef: RefObject<T | null>,
-  hoverslopBox: HoverslopBox,
+  hoverslopBox: HoverSlopBox,
   mouseEvents: EventHandlers,
-  options: hoverSlopOptions = {
+  options: HoverSlopOptions = {
     debugMode: false,
     eventOptions: {
       onMouseEnter: {
@@ -47,7 +17,7 @@ export default function useHoverSlop<T extends HTMLElement>(
       },
     },
   }
-): UseHoverslopResult {
+): UseHoverSlopResult {
   const [isHovered, setIsHovered] = useState(false)
   const { onMouseLeave, onMouseEnter, onMouseOver } = mouseEvents
   const debugMode = options.debugMode
@@ -66,7 +36,7 @@ export default function useHoverSlop<T extends HTMLElement>(
     }
   }, [elementRef])
 
-  const hoverslopBoxNormalized = useCallback(() => {
+  const hoverSlopBoxNormalized = useCallback(() => {
     if (typeof hoverslopBox === "number") {
       return {
         top: hoverslopBox,
@@ -89,7 +59,7 @@ export default function useHoverSlop<T extends HTMLElement>(
       if (!element) return false
 
       const rect = element.getBoundingClientRect()
-      const normalizedslopBox = hoverslopBoxNormalized()
+      const normalizedslopBox = hoverSlopBoxNormalized()
       return (
         clientX >= rect.left - normalizedslopBox.left &&
         clientX <= rect.right + normalizedslopBox.right &&
@@ -97,7 +67,7 @@ export default function useHoverSlop<T extends HTMLElement>(
         clientY <= rect.bottom + normalizedslopBox.bottom
       )
     },
-    [elementRef, hoverslopBoxNormalized]
+    [elementRef, hoverSlopBoxNormalized]
   )
 
   const handleOnMouseEnter = useCallback(() => {
@@ -187,8 +157,8 @@ export default function useHoverSlop<T extends HTMLElement>(
       return
     }
 
-    return HoverslopDebug(elementRef, hoverslopBoxNormalized, isHovered, getElementName())
-  }, [debugMode, elementRef, hoverslopBoxNormalized, isHovered, getElementName])
+    return HoverSlopDebug(elementRef, hoverSlopBoxNormalized, isHovered, getElementName(), options)
+  }, [debugMode, elementRef, hoverSlopBoxNormalized, isHovered, getElementName, options])
 
   return {
     isHovered,
