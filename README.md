@@ -9,6 +9,8 @@ A React hook that expands the area of the mouseOver, mouseLeave and mouseEnter e
 
 ## [Live Demo](https://react-hover-slop-example-page.vercel.app/)
 
+**Note:** _If you want to use react-hover-slop to prefetch you can use [foresight Github](https://github.com/spaansba/ForesightJS) which offers the same functionality but specifically for prefetching_
+
 ## Installation
 
 ```bash
